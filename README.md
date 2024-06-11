@@ -1,6 +1,6 @@
-# XML_to_SAP_Using_PAD
+# XML to SAP Using Power Automate Desktop
 
-This project allows you to upload some files to SAP ERP by using Power Automate Desktop, using a main flow that interacts with an Outlook instance and performs actions based on the selection of different "usinas" (steel plants). This automation can be useful for managing tasks or processes specific to each steel plant, improving efficiency, and ensuring consistency in operations.
+This project allows you to upload some files to SAP ERP by using Power Automate Desktop, using a main flow that interacts with an Outlook instance and performs actions based on the selection of different "Usinas" (steel plants). This automation can be useful for managing tasks or processes specific to each steel plant, improving efficiency, and ensuring consistency in operations.
 
 Below is an explanation of each section of the script.
 
