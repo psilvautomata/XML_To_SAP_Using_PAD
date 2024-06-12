@@ -1,0 +1,17 @@
+Outlook.Launch Instance=> OutlookInstance
+ON ERROR
+    REPEAT ACTION
+END
+CALL 'Seleção de Usina'
+IF SelectedItem = $'''Gerdau''' THEN
+    CALL Gerdau
+END
+IF SelectedItem = $'''CSN''' THEN
+    CALL CSN
+END
+IF SelectedItem = $'''ArcelorMittal''' THEN
+    CALL ArcelorMittal
+END
+IF SelectedItem = $'''Todos''' THEN
+    CALL Todos
+END
