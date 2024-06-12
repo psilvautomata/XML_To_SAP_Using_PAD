@@ -2,7 +2,7 @@ Outlook.Launch Instance=> OutlookInstance
 ON ERROR
     REPEAT ACTION
 END
-CALL 'Seleção de Usina'
+CALL 'Steel Plant Selection'
 IF SelectedItem = $'''SteelPlant1''' THEN
     CALL SteelPlant1
 END
