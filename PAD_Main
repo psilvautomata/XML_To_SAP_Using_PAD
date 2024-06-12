@@ -3,15 +3,15 @@ ON ERROR
     REPEAT ACTION
 END
 CALL 'Seleção de Usina'
-IF SelectedItem = $'''Gerdau''' THEN
-    CALL Gerdau
+IF SelectedItem = $'''SteelPlant1''' THEN
+    CALL SteelPlant1
 END
-IF SelectedItem = $'''CSN''' THEN
-    CALL CSN
+IF SelectedItem = $'''SteelPlant2''' THEN
+    CALL SteelPlant2
 END
-IF SelectedItem = $'''ArcelorMittal''' THEN
-    CALL ArcelorMittal
+IF SelectedItem = $'''SteelPlant3''' THEN
+    CALL SteelPlant3
 END
-IF SelectedItem = $'''Todos''' THEN
-    CALL Todos
+IF SelectedItem = $'''All''' THEN
+    CALL All
 END
