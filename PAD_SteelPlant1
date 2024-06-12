@@ -23,7 +23,7 @@ END
 **ENDREGION
 
 **REGION Iniciar SAP GERDAU
-SAP.SapLogin.SapLogInOptionSingle Description: "SAP Instance Description" Client: XxX Username: "username" Password: "password" Language: "PT" SapInstance=> SapInstance OtherSapLoginTerminated=> OtherSapLoginTerminated
+SAP.SapLogin.SapLogInOptionSingle Description: "SAP Instance Description" Client: '''XxX''' Username: '''username''' Password: '''password''' Language: $'''PT''' SapInstance=> SapInstance OtherSapLoginTerminated=> OtherSapLoginTerminated
 WAIT (UIAutomation.WaitForImage.ToAppearOnScreen Images: [imgrepo['SAP System']] FindAllImages: False Tolerance: 10 SearchAlgorithm: UIAutomation.ImageFinderAlgorithm.Legacy) FOR 5 
     ON ERROR
     END
