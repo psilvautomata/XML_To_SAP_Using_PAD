@@ -1,0 +1,14 @@
+FUNCTION 'Seleção de Usina' GLOBAL
+    **REGION Seleção de Usina
+    DateTime.GetCurrentDateTime.Local DateTimeFormat: DateTime.DateTimeFormat.DateOnly CurrentDateTime=> CurrentDateTime
+    Variables.CreateNewList List=> List
+    Variables.AddItemToList Item: $'''All''' List: List
+    Variables.AddItemToList Item: $'''SteelPlant1'''' List: List
+    Variables.AddItemToList Item: $'''SteelPlant2''' List: List
+    Variables.AddItemToList Item: $'''SteelPlant3''' List: List
+    Display.SelectFromListDialog.SelectFromList Title: $'''Usina''' Message: $'''Selecione a(s) Usina(s)''' List: List IsTopMost: False AllowEmpty: False SelectedItem=> SelectedItem SelectedIndex=> SelectedIndex ButtonPressed=> ButtonPressed
+    IF ButtonPressed = $'''Cancel''' THEN
+        EXIT Code: 0
+    END
+    **ENDREGION
+END FUNCTION
