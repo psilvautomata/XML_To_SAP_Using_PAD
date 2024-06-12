@@ -1,0 +1,45 @@
+**REGION Data Início
+Display.SelectDateDialog.SelectDateRange Title: "Data SteelPlant1" Message: "Insert the data range to SteelPlant1 XML's files:" DateDialogFormat: Display.DateDialogFormat.DateOnly DefaultValue: CurrentDateTime IsTopMost: False SelectedDate=> Data1 SecondSelectedDate=> Data2 ButtonPressed=> ButtonPressed
+IF ButtonPressed = "Cancel" THEN
+    EXIT Code: 0
+END
+Text.ConvertDateTimeToText.FromDateTime DateTime: Data1 StandardFormat: Text.WellKnownDateTimeFormat.ShortDate Result=> Conversao1
+Text.ConvertDateTimeToText.FromDateTime DateTime: Data2 StandardFormat: Text.WellKnownDateTimeFormat.ShortDate Result=> Conversao2
+**ENDREGION
+
+**REGION Excel Operations
+Excel.LaunchExcel.LaunchAndOpenUnderExistingProcess Path: "C:\\Path\\To\\DataCom.xlsm" Visible: False ReadOnly: False Instance=> ExcelInstance
+Excel.FindAndReplace.FindSingle Instance: ExcelInstance TextToFind: Conversao1 MatchCase: False MatchEntireCellContents: True SearchBy: Excel.SearchOrder.Rows FoundColumnIndex=> ColunaData1 FoundRowIndex=> LinhaData1
+Excel.FindAndReplace.FindSingle Instance: ExcelInstance TextToFind: Conversao2 MatchCase: False MatchEntireCellContents: True SearchBy: Excel.SearchOrder.Rows FoundColumnIndex=> ColunaData2 FoundRowIndex=> LinhaData2
+LOOP LinhaLoop FROM LinhaData1 TO LinhaData2 STEP 1
+    Excel.ReadFromExcel.ReadCell Instance: ExcelInstance StartColumn: 4 StartRow: LinhaLoop ReadAsText: True CellValue=> DataValor
+    Outlook.RetrieveEmailMessages.RetrieveEmailsAndSaveAttachments Instance: OutlookInstance Account: "your-email@example.com" MailFolder: "YOUR FOLDER\\XML" EmailsToRetrieve: Outlook.RetrieveMessagesMode.All MarkAsRead: True ReadBodyAsHtml: False SubjectContains: DataValor SaveAttachmentsInto: "C:\\Path\\To\\SteelPlant1" Messages=> RetrievedEmails
+END
+Excel.CloseExcel.Close Instance: ExcelInstance
+Folder.GetFiles Folder: "C:\\Path\\To\\SteelPlant1" FileFilter: "*" IncludeSubfolders: False FailOnAccessDenied: True SortBy1: Folder.SortBy.NoSort SortDescending1: False SortBy2: Folder.SortBy.NoSort SortDescending2: False SortBy3: Folder.SortBy.NoSort SortDescending3: False Files=> ArquivosNaPasta
+IF IsEmpty(ArquivosNaPasta) THEN
+    EXIT Code: 0 ErrorMessage: "\"Não há Arquivos no Periódo Informado\""
+END
+**ENDREGION
+
+**REGION Iniciar SAP GERDAU
+SAP.SapLogin.SapLogInOptionSingle Description: "SAP Instance Description" Client: XxX Username: "username" Password: "password" Language: "PT" SapInstance=> SapInstance OtherSapLoginTerminated=> OtherSapLoginTerminated
+WAIT (UIAutomation.WaitForImage.ToAppearOnScreen Images: [imgrepo['SAP System']] FindAllImages: False Tolerance: 10 SearchAlgorithm: UIAutomation.ImageFinderAlgorithm.Legacy) FOR 5 
+    ON ERROR
+    END
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Return}'
+WAIT 2
+SAP.StartTransaction SapInstance: SapInstance TransactionCode: "XxX"
+UIAutomation.FocusWindow.Focus Window: appmask['Window \'A Window'']
+Clipboard.SetText Text: "C:\\Path\\To\\SteelPlant1"
+MouseAndKeyboard.MoveMouseToImage.ClickImage Images: [imgrepo['origem']] SearchForImageOn: MouseAndKeyboard.SearchTarget.EntireScreen MousePositionOnImage: MouseAndKeyboard.PositionOnImage.MiddleCenter OffsetX: 0 OffsetY: 0 Tolerance: 10 MovementStyle: MouseAndKeyboard.MovementStyle.Instant Occurence: 1 Timeout: 5 ClickType: MouseAndKeyboard.ClickType.LeftClick SecondsBeforeClick: 0 SearchAlgorithm: MouseAndKeyboard.ImageFinderAlgorithm.Legacy
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Tab}' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Control}({V})' DelayBetweenKeystrokes: 2 SendTextAsHardwareKeys: False
+WAIT 2
+Clipboard.SetText Text: "Q:\\Path\\To\\Carregado"
+MouseAndKeyboard.MoveMouseToImage.ClickImage Images: [imgrepo['Backup']] SearchForImageOn: MouseAndKeyboard.SearchTarget.EntireScreen MousePositionOnImage: MouseAndKeyboard.PositionOnImage.MiddleCenter OffsetX: 0 OffsetY: 0 Tolerance: 10 MovementStyle: MouseAndKeyboard.MovementStyle.Instant Occurence: 1 Timeout: 5 ClickType: MouseAndKeyboard.ClickType.LeftClick SecondsBeforeClick: 0 SearchAlgorithm: MouseAndKeyboard.ImageFinderAlgorithm.Legacy
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Tab}' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Control}({V})' DelayBetweenKeystrokes: 2 SendTextAsHardwareKeys: False
+WAIT 2
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{F8}' DelayBetweenKeystrokes: 2 SendTextAsHardwareKeys: False
+**ENDREGION
