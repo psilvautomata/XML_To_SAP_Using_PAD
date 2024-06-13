@@ -22,7 +22,7 @@ IF IsEmpty(ArquivosNaPasta) THEN
 END
 **ENDREGION
 
-**REGION Iniciar SAP GERDAU
+**REGION Iniciar SAP SteelPlant2
 SAP.SapLogin.SapLogInOptionSingle Description: "SAP Instance Description" Client: '''XxX''' Username: '''username''' Password: '''password''' Language: $'''PT''' SapInstance=> SapInstance OtherSapLoginTerminated=> OtherSapLoginTerminated
 WAIT (UIAutomation.WaitForImage.ToAppearOnScreen Images: [imgrepo['SAP System']] FindAllImages: False Tolerance: 10 SearchAlgorithm: UIAutomation.ImageFinderAlgorithm.Legacy) FOR 5 
     ON ERROR
