@@ -30,7 +30,7 @@ WAIT (UIAutomation.WaitForImage.ToAppearOnScreen Images: [imgrepo['SAP System']]
 MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Return}'
 WAIT 2
 SAP.StartTransaction SapInstance: SapInstance TransactionCode: "XxX"
-UIAutomation.FocusWindow.Focus Window: appmask['Window \'A Window'']
+UIAutomation.FocusWindow.Focus Window: appmask['Window' / 'Window']
 Clipboard.SetText Text: "C:\\Path\\To\\SteelPlant1"
 MouseAndKeyboard.MoveMouseToImage.ClickImage Images: [imgrepo['origem']] SearchForImageOn: MouseAndKeyboard.SearchTarget.EntireScreen MousePositionOnImage: MouseAndKeyboard.PositionOnImage.MiddleCenter OffsetX: 0 OffsetY: 0 Tolerance: 10 MovementStyle: MouseAndKeyboard.MovementStyle.Instant Occurence: 1 Timeout: 5 ClickType: MouseAndKeyboard.ClickType.LeftClick SecondsBeforeClick: 0 SearchAlgorithm: MouseAndKeyboard.ImageFinderAlgorithm.Legacy
 MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: '{Tab}' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False
